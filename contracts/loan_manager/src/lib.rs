@@ -1985,7 +1985,7 @@ impl LoanManager {
         let borrower_loans_key = DataKey::BorrowerLoans(loan.borrower.clone());
         if let Some(existing) = env
             .storage()
-            .instance()
+            .persistent()
             .get::<_, Vec<u32>>(&borrower_loans_key)
         {
             let mut updated: Vec<u32> = Vec::new(&env);
@@ -1995,9 +1995,12 @@ impl LoanManager {
                 }
             }
             if updated.is_empty() {
-                env.storage().instance().remove(&borrower_loans_key);
+                env.storage().persistent().remove(&borrower_loans_key);
             } else {
-                env.storage().instance().set(&borrower_loans_key, &updated);
+                env.storage()
+                    .persistent()
+                    .set(&borrower_loans_key, &updated);
+                Self::bump_persistent_ttl(&env, &borrower_loans_key);
             }
         }
 
