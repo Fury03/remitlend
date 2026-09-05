@@ -12,7 +12,7 @@ export const up = (pgm) => {
     per_type_overrides: {
       type: 'jsonb',
       notNull: true,
-      default: "'{}'",
+      default: pgm.func("'{}'::jsonb"),
       comment: 'Per-notification-type overrides, e.g. {"repayment_due": true}',
     },
   });

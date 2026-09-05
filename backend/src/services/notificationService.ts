@@ -206,7 +206,10 @@ class NotificationService {
 
   async updateNotificationPreferences(
     userId: string,
-    payload: Pick<NotificationPreferences, 'emailEnabled' | 'smsEnabled' | 'phone' | 'perTypeOverrides'>,
+    payload: Pick<
+      NotificationPreferences,
+      'emailEnabled' | 'smsEnabled' | 'phone' | 'perTypeOverrides'
+    >,
   ): Promise<NotificationPreferences> {
     const result = await query(
       `UPDATE user_profiles

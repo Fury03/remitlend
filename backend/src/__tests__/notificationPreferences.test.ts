@@ -68,12 +68,14 @@ describe('notification preferences endpoints', () => {
 
   it('returns persisted perTypeOverrides on GET', async () => {
     mockQuery.mockResolvedValueOnce({
-      rows: [{
-        email_enabled: true,
-        sms_enabled: false,
-        phone: '+15551234567',
-        per_type_overrides: { repayment_due: true, loan_approved: false },
-      }],
+      rows: [
+        {
+          email_enabled: true,
+          sms_enabled: false,
+          phone: '+15551234567',
+          per_type_overrides: { repayment_due: true, loan_approved: false },
+        },
+      ],
     });
 
     const response = await request(app)
